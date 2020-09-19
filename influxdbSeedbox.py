@@ -52,15 +52,15 @@ class configManager():
     def _load_config_values(self):
 
         # General
-        self.delay = os.environ.get(
+        self.delay = int(os.environ.get(
             'DELAY',
             self.config['GENERAL'].getint('Delay', fallback=2)
-        )
+        ))
 
-        self.output = os.environ.get(
+        self.output = bool(os.environ.get(
             'OUTPUT',
             self.config['GENERAL'].getboolean('Output', fallback=True)
-        )
+        ))
 
         self.hostname = os.environ.get(
             'HOSTNAME',
@@ -77,10 +77,10 @@ class configManager():
             self.config['INFLUXDB']['Address']
         )
 
-        self.influx_port = os.environ.get(
+        self.influx_port = int(os.environ.get(
             'INFLUXDB_PORT',
             self.config['INFLUXDB'].getint('Port', fallback=8086)
-        )
+        ))
 
         self.influx_database = os.environ.get(
             'INFLUXDB_DATABASE',
@@ -97,49 +97,49 @@ class configManager():
             self.config['INFLUXDB'].get('Password', fallback='')
         )
 
-        self.influx_ssl = os.environ.get(
+        self.influx_ssl = bool(os.environ.get(
             'INFLUXDB_SSL',
             self.config['INFLUXDB'].getboolean('SSL', fallback=False)
-        )
+        ))
 
-        self.influx_verify_ssl = os.environ.get(
+        self.influx_verify_ssl = bool(os.environ.get(
             'INFLUXDB_VERIFY_SSL',
             self.config['INFLUXDB'].getboolean('Verify_SSL', fallback=True)
-        )
+        ))
 
 
         # Logging
-        self.logging = os.environ.get(
+        self.logging = bool(os.environ.get(
             'LOGGING',
             self.config['LOGGING'].getboolean('Enable', fallback=False)
-        )
+        ))
 
         self.logging_level = os.environ.get(
             'LOGGING_LEVEL',
-            self.config['LOGGING']['Level'].upper()
-        )
+            self.config['LOGGING']['Level']
+        ).upper()
 
         self.logging_file = os.environ.get(
             'LOGGING_FILE',
             self.config['LOGGING']['LogFile']
         )
 
-        self.logging_censor = os.environ.get(
+        self.logging_censor = bool(os.environ.get(
             'LOGGING_CENSOR',
             self.config['LOGGING'].getboolean('CensorLogs', fallback=True)
-        )
+        ))
 
-        self.logging_print_threshold = os.environ.get(
+        self.logging_print_threshold = int(os.environ.get(
             'LOGGING_THRESHOLD',
             self.config['LOGGING'].getint('PrintThreshold', fallback=2)
-        )
+        ))
 
 
         # TorrentClient
         self.tor_client = os.environ.get(
             'TORRENT_CLIENT',
-            self.config['TORRENTCLIENT'].get('Client', fallback=None).lower()
-        )
+            self.config['TORRENTCLIENT'].get('Client')
+        ).lower()
 
         self.tor_client_user = os.environ.get(
             'TORRENT_CLIENT_USERNAME',
