@@ -42,33 +42,40 @@ However, you can refer to [this guide](http://elektito.com/2016/02/10/rtorrent-x
 ## Configuration within config.ini
 
 #### GENERAL
-|Key            |Description                                                                                                         |
-|:--------------|:-------------------------------------------------------------------------------------------------------------------|
-|Delay          |Delay between runs                                                                                                  |
-|Output         |Write console output while tool is running                                                                          |
-|Hostname       |Hostname to use as tag in InfluxDB.  Leaving black will auto-detect                                                 |
-#### INFLUXDB
-|Key            |Description                                                                                                         |
-|:--------------|:-------------------------------------------------------------------------------------------------------------------|
-|Address        |Delay between updating metrics                                                                                      |
-|Port           |InfluxDB port to connect to.  8086 in most cases                                                                    |
-|Database       |Database to write collected stats to                                                                                |
-|Username       |User that has access to the database                                                                                |
-|Password       |Password for above user                                                                                             |
-#### TORRENTCLIENT
-|Key            |Description                                                                                                         |
-|:--------------|:-------------------------------------------------------------------------------------------------------------------|
-|Client         |The torrent client to target.  Currently Support: deluge                                                            |
-|Password       |Password to use when connecting to the API                                                                          |
-|Url            |URL of the API to connect to.                                                                                       |
-#### LOGGING
-|Key            |Description                                                                                                         |
-|:--------------|:-------------------------------------------------------------------------------------------------------------------|
-|Enable         |Output logging messages to provided log file                                                                        |
-|Level          |Minimum type of message to log.  Valid options are: critical, error, warning, info, debug                           |
-|LogFile        |File to log messages to.  Can be relative or absolute path                                                          |
-|CensorLogs     |Censor certain things like server names and IP addresses from logs                                                  |
 
+| Key      | Environment variable | Description                                                        |
+| :------- | :------------------- | ------------------------------------------------------------------ |
+| Delay    | DELAY                | Delay between runs                                                 |
+| Output   | OUTPUT               | Write console output while tool is running                         |
+| Hostname | HOSTNAME             | Hostname to use as tag in InfluxDB. Leaving black will auto-detect |
+
+#### INFLUXDB
+
+| Key      | Environment variable | Description                                     |
+| :------- | :------------------- | ----------------------------------------------- |
+| Address  | INFLUXDB_ADDRESS     | Delay between updating metrics                  |
+| Port     | INFLUXDB_PORT        | InfluxDB port to connect to. 8086 in most cases |
+| Database | INFLUXDB_DATABASE    | Database to write collected stats to            |
+| Username | INFLUXDB_USERNAME    | User that has access to the database            |
+| Password | INFLUXDB_PASSWORD    | Password for above user                         |
+
+#### TORRENTCLIENT
+
+| Key      | Environment variable    | Description                                |
+| :------- | :---------------------- | ------------------------------------------ |
+| Client   | TORRENT_CLIENT          | The torrent client to target.              |
+| User     | TORRENT_CLIENT_USERNAME | Username to use when connecting to the API |
+| Password | TORRENT_CLIENT_PASSWORD | Password to use when connecting to the API |
+| Url      | TORRENT_CLIENT_URL      | URL of the API to connect to.              |
+
+#### LOGGING
+
+| Key        | Environment variable | Description                                                                              |
+| :--------- | :------------------- | ---------------------------------------------------------------------------------------- |
+| Enable     | LOGGING              | Output logging messages to provided log file                                             |
+| Level      | LOGGING_LEVEL        | Minimum type of message to log. Valid options are: critical, error, warning, info, debug |
+| LogFile    | LOGGING_FILE         | File to log messages to. Can be relative or absolute path                                |
+| CensorLogs | LOGGING_CENSOR       | Censor certain things like server names and IP addresses from logs                       |
 
 ***Requirements***
 
