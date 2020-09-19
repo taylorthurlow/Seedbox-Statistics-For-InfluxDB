@@ -42,7 +42,7 @@ class rTorrentClient(TorrentClient):
             self.torrent_list[torrent.info_hash]['total_size'] = torrent.size_bytes
             self.torrent_list[torrent.info_hash]['progress'] = round((torrent.bytes_done / torrent.size_bytes * 100), 2)
             self.torrent_list[torrent.info_hash]['total_downloaded'] = torrent.bytes_done
-            self.torrent_list[torrent.info_hash]['total_uploaded'] = 1 # TODO Need to figure out where to get this
+            self.torrent_list[torrent.info_hash]['total_uploaded'] = torrent.get_up_total()
             self.torrent_list[torrent.info_hash]['ratio'] = torrent.ratio
             self.torrent_list[torrent.info_hash]['total_seeds'] = 'N/A'
             self.torrent_list[torrent.info_hash]['state'] = torrent.get_state()
