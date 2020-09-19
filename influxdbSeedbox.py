@@ -52,34 +52,112 @@ class configManager():
     def _load_config_values(self):
 
         # General
-        self.delay = self.config['GENERAL'].getint('Delay', fallback=2)
-        self.output = self.config['GENERAL'].getboolean('Output', fallback=True)
-        self.hostname = self.config['GENERAL'].get('Hostname')
+        self.delay = os.environ.get(
+            'DELAY',
+            self.config['GENERAL'].getint('Delay', fallback=2)
+        )
+
+        self.output = os.environ.get(
+            'OUTPUT',
+            self.config['GENERAL'].getboolean('Output', fallback=True)
+        )
+
+        self.hostname = os.environ.get(
+            'HOSTNAME',
+            self.config['GENERAL'].get('Hostname')
+        )
+
         if not self.hostname:
             self.hostname = socket.gethostname()
 
 
         # InfluxDB
-        self.influx_address = self.config['INFLUXDB']['Address']
-        self.influx_port = self.config['INFLUXDB'].getint('Port', fallback=8086)
-        self.influx_database = self.config['INFLUXDB'].get('Database', fallback='speedtests')
-        self.influx_user = self.config['INFLUXDB'].get('Username', fallback='')
-        self.influx_password = self.config['INFLUXDB'].get('Password', fallback='')
-        self.influx_ssl = self.config['INFLUXDB'].getboolean('SSL', fallback=False)
-        self.influx_verify_ssl = self.config['INFLUXDB'].getboolean('Verify_SSL', fallback=True)
+        self.influx_address = os.environ.get(
+            'INFLUXDB_ADDRESS',
+            self.config['INFLUXDB']['Address']
+        )
 
-        #Logging
-        self.logging = self.config['LOGGING'].getboolean('Enable', fallback=False)
-        self.logging_level = self.config['LOGGING']['Level'].upper()
-        self.logging_file = self.config['LOGGING']['LogFile']
-        self.logging_censor = self.config['LOGGING'].getboolean('CensorLogs', fallback=True)
-        self.logging_print_threshold = self.config['LOGGING'].getint('PrintThreshold', fallback=2)
+        self.influx_port = os.environ.get(
+            'INFLUXDB_PORT',
+            self.config['INFLUXDB'].getint('Port', fallback=8086)
+        )
+
+        self.influx_database = os.environ.get(
+            'INFLUXDB_DATABASE',
+            self.config['INFLUXDB'].get('Database', fallback='speedtests')
+        )
+
+        self.influx_user = os.environ.get(
+            'INFLUXDB_USERNAME',
+            self.config['INFLUXDB'].get('Username', fallback='')
+        )
+
+        self.influx_password = os.environ.get(
+            'INFLUXDB_PASSWORD',
+            self.config['INFLUXDB'].get('Password', fallback='')
+        )
+
+        self.influx_ssl = os.environ.get(
+            'INFLUXDB_SSL',
+            self.config['INFLUXDB'].getboolean('SSL', fallback=False)
+        )
+
+        self.influx_verify_ssl = os.environ.get(
+            'INFLUXDB_VERIFY_SSL',
+            self.config['INFLUXDB'].getboolean('Verify_SSL', fallback=True)
+        )
+
+
+        # Logging
+        self.logging = os.environ.get(
+            'LOGGING',
+            self.config['LOGGING'].getboolean('Enable', fallback=False)
+        )
+
+        self.logging_level = os.environ.get(
+            'LOGGING_LEVEL',
+            self.config['LOGGING']['Level'].upper()
+        )
+
+        self.logging_file = os.environ.get(
+            'LOGGING_FILE',
+            self.config['LOGGING']['LogFile']
+        )
+
+        self.logging_censor = os.environ.get(
+            'LOGGING_CENSOR',
+            self.config['LOGGING'].getboolean('CensorLogs', fallback=True)
+        )
+
+        self.logging_print_threshold = os.environ.get(
+            'LOGGING_THRESHOLD',
+            self.config['LOGGING'].getint('PrintThreshold', fallback=2)
+        )
+
 
         # TorrentClient
-        self.tor_client = self.config['TORRENTCLIENT'].get('Client', fallback=None).lower()
-        self.tor_client_user = self.config['TORRENTCLIENT'].get('Username', fallback=None)
-        self.tor_client_password = self.config['TORRENTCLIENT'].get('Password', fallback=None)
-        self.tor_client_url = self.config['TORRENTCLIENT'].get('Url', fallback=None)
+        self.tor_client = os.environ.get(
+            'TORRENT_CLIENT',
+            self.config['TORRENTCLIENT'].get('Client', fallback=None).lower()
+        )
+
+        self.tor_client_user = os.environ.get(
+            'TORRENT_CLIENT_USERNAME',
+            self.config['TORRENTCLIENT'].get('Username', fallback=None)
+        )
+
+        self.tor_client_password = os.environ.get(
+            'TORRENT_CLIENT_PASSWORD',
+            self.config['TORRENTCLIENT'].get('Password', fallback=None)
+        )
+
+        self.tor_client_url = os.environ.get(
+            'TORRENT_CLIENT_URL',
+            self.config['TORRENTCLIENT'].get('Url', fallback=None)
+        )
+
+        print("TORRENT CLIENT URL: " + self.tor_client_url)
+
 
     def _validate_torrent_client(self):
 
