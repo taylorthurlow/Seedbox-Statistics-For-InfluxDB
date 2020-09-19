@@ -34,7 +34,7 @@ class rTorrentClient(TorrentClient):
         Take the resulting torrent list and create a consistent structure shared through all clients
         :return:
         """
-        self.send_log('Structuring list of torrents', 'debug')
+        self.send_log('Structuring list of ' + str(len(torrents)) + ' torrent(s)', 'debug')
 
         for torrent in torrents:
             self.torrent_list[torrent.info_hash] = {}
